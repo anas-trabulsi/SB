@@ -98,6 +98,10 @@ class Dog{
 		$hours = $diff->h + $diff->days * 24;
 		return $hours >= self::FEEDING_FREQUENCY;
 	}
+	public function hasBeenWalked(){
+		$toBeWalked = new ToBeWalked();
+		return $toBeWalked->hasBeenWalked($this);
+	}
 	/************Dog Methods End************/
 	
 	/**
@@ -109,6 +113,7 @@ class Dog{
 					"breed" => $this->getBreed(),
 					"is_barking" => $this->isBarking(),
 					"is_hungry" => $this->isHungry(),
+					"has_been_walked" => $this->hasBeenWalked(),
 					"actions" => $this->getAvailableActions(),
 		);
 	}
@@ -153,7 +158,7 @@ class Dog{
 	 * The generic dog has only one action, which is "feed", while the other breeds have other actions, such as pet, playWith, etc
 	 */
 	public function getAvailableActions(){
-		return array("feed" => Captions::FEED);
+		return array("feed" => Captions::FEED, "walk" => Captions::WALK);
 	}
 	
 	public function hasAction($actionName){
@@ -179,6 +184,11 @@ class Dog{
 		}
 		$this->lastFed = new DateTime();
 		return true;
+	}
+	
+	protected function walk(){
+		$toBeWalked = new ToBeWalked();
+		return $toBeWalked->walk($this);
 	}
 	/************ACTIONS METHODS End************/
 }

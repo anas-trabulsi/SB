@@ -10,6 +10,7 @@
 				<th>Hair Color</th>
 				<th>Is Barking</th>
 				<th>Is Hungry</th>
+				<th>Has Been Walked</th>
 				<th>Actions</th>
 			</tr>
 		</thead>
@@ -28,6 +29,13 @@
 					</td>
 					<td>
 						{% if oneDog.is_hungry %}
+							<span class="glyphicon glyphicon-ok glyphicon-white"></span>
+						{% else %}
+							<span class="glyphicon glyphicon-remove glyphicon-white"></span>
+						{% endif %}
+					</td>
+					<td>
+						{% if oneDog.has_been_walked %}
 							<span class="glyphicon glyphicon-ok glyphicon-white"></span>
 						{% else %}
 							<span class="glyphicon glyphicon-remove glyphicon-white"></span>

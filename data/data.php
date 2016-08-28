@@ -23,4 +23,23 @@ class DatabaseSimulator{
 		
 		return json_encode($array);
 	}
+
+	public static function getToBeWalkedData(){
+		$date = new DateTime();
+		
+		/*
+		 * Dogs with IDS 6 and 7 were walked twice, once now and once two days ago
+		 * but dogs with IDs 8 and 9 were only walked two days ago
+		 */
+		$array = array();
+		$array[] = array("id" => 1, "dog_id" => 6, "walk_time" => $date->format("Y-m-d H:i:s"));
+		$array[] = array("id" => 2, "dog_id" => 7, "walk_time" => $date->format("Y-m-d H:i:s"));
+		
+		$date->sub(new DateInterval('P2D'));
+		$array[] = array("id" => 3, "dog_id" => 6, "walk_time" => $date->format("Y-m-d H:i:s"));
+		$array[] = array("id" => 4, "dog_id" => 7, "walk_time" => $date->format("Y-m-d H:i:s"));
+		$array[] = array("id" => 5, "dog_id" => 8, "walk_time" => $date->format("Y-m-d H:i:s"));
+		$array[] = array("id" => 6, "dog_id" => 9, "walk_time" => $date->format("Y-m-d H:i:s"));
+		return json_encode($array);
+	}
 }

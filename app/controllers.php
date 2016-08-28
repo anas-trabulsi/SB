@@ -2,6 +2,7 @@
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 require_once __DIR__ . "/models/Dog.php";
+require_once __DIR__ . "/models/ToBeWalked.php";
 require_once __DIR__ . "/../data/data.php";
 require_once __DIR__ . "/../locale/Captions.php";
 $app['debug'] = true;

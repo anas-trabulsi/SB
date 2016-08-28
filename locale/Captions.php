@@ -14,4 +14,6 @@ class Captions{
 	const NO_FOOD_LEFT = "We're out of dog food";
 	const GENERIC_DOG = "Generic Dog";
 	const FEED = "Feed";
+	const WALK = "Walk";
+	const CANNOT_WALK_DOG = "It's snowing outside, and the dog cannot walk";
 }

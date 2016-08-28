@@ -8,11 +8,11 @@
 			<strong>ID</strong><br/>
 			{{ dog.id }}
 		</div>
-		<div class="col-md-3">
+		<div class="col-md-2">
 			<strong>Breed</strong><br/>
 			{{ dog.breed }}
 		</div>
-		<div class="col-md-3">
+		<div class="col-md-2">
 			<strong>Color</strong><br/>
 			{{ dog.hair_color }}
 		</div>
@@ -27,6 +27,14 @@
 		<div class="col-md-2">
 			<strong>Is Hungry?</strong><br/>
 			{% if dog.is_hungry %}
+				<span class="glyphicon glyphicon-ok glyphicon-white"></span>
+			{% else %}
+				<span class="glyphicon glyphicon-remove glyphicon-white"></span>
+			{% endif %}
+		</div>
+		<div class="col-md-2">
+			<strong>Has Been Walked</strong><br/>
+			{% if dog.has_been_walked %}
 				<span class="glyphicon glyphicon-ok glyphicon-white"></span>
 			{% else %}
 				<span class="glyphicon glyphicon-remove glyphicon-white"></span>

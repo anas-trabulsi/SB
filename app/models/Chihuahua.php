@@ -36,6 +36,9 @@ class Chihuahua extends Dog{
 	
 	public function getAvailableActions(){
 		$actions = parent::getAvailableActions();
+		if (isset($actions["walk"])){//We don't walk Chihuahua dogs!
+			unset($actions["walk"]);
+		}
 		$actions["pet"] = Captions::PET;
 		return $actions;
 	}
