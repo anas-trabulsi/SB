@@ -106,7 +106,7 @@ class Dog{
 	protected function feed(){
 		//To be able to test the error handling, we'll throw an exception 25% of the times, indicating that we don't have enough food
 		if (mt_rand(0,3) == 1){
-			throw new Exception("We're out of dog food");
+			throw new Exception(Captions::NO_FOOD_LEFT);
 		}
 		$this->lastFed = new DateTime();
 		return true;
@@ -126,7 +126,7 @@ class Dog{
 		);
 	}
 	public function getBreed(){
-		return "Generic Dog";
+		return Captions::GENERIC_DOG;
 	}
 	
 	/**
@@ -166,7 +166,7 @@ class Dog{
 	 * The generic dog has only one action, which is "feed", while the other breeds have other actions, such as pet, playWith, etc
 	 */
 	public function getAvailableActions(){
-		return array("feed" => "Feed");
+		return array("feed" => Captions::FEED);
 	}
 	
 	public function hasAction($actionName){
@@ -176,7 +176,7 @@ class Dog{
 	
 	final public function executeAction($actionName){
 		if (!$this->hasAction($actionName)){
-			throw new Exception("Action does not exist");
+			throw new Exception(Captions::ACTION_DOES_NOT_EXIST);
 		}
 		return $this->$actionName();
 	}

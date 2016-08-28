@@ -3,6 +3,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 require_once __DIR__ . "/models/Dog.php";
 require_once __DIR__ . "/../data/data.php";
+require_once __DIR__ . "/../locale/Captions.php";
 $app['debug'] = true;
 $app->get('/', function () use ($app) {
 	return $app['twig']->render('home.html');
@@ -21,11 +22,11 @@ $app->get('/dogs', function () use ($app) {
 $app->get('/dogs/action/{action}/{id}', function ($id, $action) use ($app) {
 	$dog = Dog::loadById($id);
 	if (!$dog){
-		$app->abort(404, "This dog does not exist");
+		$app->abort(404, Captions::DOG_DOES_NOT_EXIST);
 	}
 	else{
 		if (!$dog->hasAction($action)){
-			$app->abort(404, "Action does not exist for this dog");
+			$app->abort(404, Captions::ACTION_DOES_NOT_EXIST);
 		}
 		else{
 			$errorMessage = "";
@@ -45,7 +46,7 @@ $app->get('/dogs/action/{action}/{id}', function ($id, $action) use ($app) {
 $app->get('/dogs/details/{id}', function ($id) use ($app) {
 	$dog = Dog::loadById($id);
 	if (!$dog){
-		$app->abort(404, "This dog does not exist");
+		$app->abort(404, Captions::DOG_DOES_NOT_EXIST);
 	}
 	else{
 		return $app['twig']->render($dog->viewDetailsFile(), ['dog' => $dog->toArray()]);

@@ -24,7 +24,7 @@ class Bernese extends Dog{
 		return $array;
 	}
 	public function getBreed(){
-		return "Bernese Mountain Dog";
+		return Captions::BERNESE_MOUNTAIN_DOG;
 	}
 	
 	/**
@@ -39,8 +39,8 @@ class Bernese extends Dog{
 
 	public function getAvailableActions(){
 		$actions = parent::getAvailableActions();
-		$actions["playWith"] = "Play With";
-		$actions["sleepWithAsCushion"] = "Sleep with as Cushion";
+		$actions["playWith"] = Captions::PLAY_WITH;
+		$actions["sleepWithAsCushion"] = Captions::SLEEP_WITH_AS_CUSHION;
 		return $actions;
 	}
 	
@@ -51,7 +51,7 @@ class Bernese extends Dog{
 	public function sleepWithAsCushion(){
 		//To be able to test the error handling, we'll throw an exception 25% of the times, indicating that the dog has bitten our hand
 		if (mt_rand(0,3) == 1){
-			throw new Exception("The dog did not sleep");
+			throw new Exception(Captions::DOG_DID_NOT_SLEEP);
 		}
 		return true;
 	}

@@ -21,7 +21,7 @@ class Chihuahua extends Dog{
 		return $array;
 	}
 	public function getBreed(){
-		return "Chihuahua";
+		return Captions::CHIHUAHUA;
 	}
 	
 	/**
@@ -36,14 +36,14 @@ class Chihuahua extends Dog{
 	
 	public function getAvailableActions(){
 		$actions = parent::getAvailableActions();
-		$actions["pet"] = "Pet";
+		$actions["pet"] = Captions::PET;
 		return $actions;
 	}
 	
 	public function pet(){
 		//To be able to test the error handling, we'll throw an exception 25% of the times, indicating that the dog has bitten our hand
 		if (mt_rand(0,3) == 1){
-			throw new Exception("The dog tried to bite my hand");
+			throw new Exception(Captions::DOG_BIT_HAND);
 		}
 		$this->lastTimeDogWasPetted = new DateTime();
 		return true;
