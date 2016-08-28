@@ -34,7 +34,7 @@ class Dog{
 			$this->hairColor = $params->hair_color;
 		}
 		if (isset($params->last_fed)){
-			$this->lastFed = $params->last_fed;
+			$this->lastFed = new DateTime($params->last_fed);
 		}
 	}
 	
