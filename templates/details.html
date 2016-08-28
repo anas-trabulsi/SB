@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block title %}Dog Details{% endblock %}
+{% block content %}
+	{% if result %}
+		<h1>Dog Details</h1>
+		<div class="row">
+			<div class="col-md-2">
+				<strong>ID</strong><br/>
+				{{ dog.id }}
+			</div>
+			<div class="col-md-3">
+				<strong>Breed</strong><br/>
+				{{ dog.breed }}
+			</div>
+			<div class="col-md-3">
+				<strong>Color</strong><br/>
+				{{ dog.hair_color }}
+			</div>
+			<div class="col-md-2">
+				<strong>Is Barking?</strong><br/>
+				{% if dog.is_barking %}
+					<span class="glyphicon glyphicon-ok glyphicon-white"></span>
+				{% else %}
+					<span class="glyphicon glyphicon-remove glyphicon-white"></span>
+				{% endif %}
+			</div>
+			<div class="col-md-2">
+				<strong>Is Hungry?</strong><br/>
+				{% if dog.is_hungry %}
+					<span class="glyphicon glyphicon-ok glyphicon-white"></span>
+				{% else %}
+					<span class="glyphicon glyphicon-remove glyphicon-white"></span>
+				{% endif %}
+			</div>
+		</div>
+		{% block additional_details %}{% endblock %}
+	{% else %}
+		<div class="row">
+			We could not feed the dog.
+			{{ msg }}
+		</div>
+	{% endif %}
+	<a href="{{ app.url_generator.generate('dogs-browse') }}">Back to dogs list</a>
+{% endblock %}

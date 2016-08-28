@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block title %}All Dogs{% endblock %}
+{% block content %}
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Breed</th>
+				<th>Hair Color</th>
+				<th>Is Barking</th>
+				<th>Is Hungry</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for oneDog in dogs %}
+				<tr>
+					<td>{{ oneDog.id }}</td>
+					<td>{{ oneDog.breed }}</td>
+					<td>{{ oneDog.hair_color }}</td>
+					<td>
+						{% if oneDog.is_barking %}
+							<span class="glyphicon glyphicon-ok glyphicon-white"></span>
+						{% else %}
+							<span class="glyphicon glyphicon-remove glyphicon-white"></span>
+						{% endif %}
+					</td>
+					<td>
+						{% if oneDog.is_hungry %}
+							<span class="glyphicon glyphicon-ok glyphicon-white"></span>
+						{% else %}
+							<span class="glyphicon glyphicon-remove glyphicon-white"></span>
+						{% endif %}
+					</td>
+					<td>
+						<a href="{{ app.url_generator.generate('dogs-feed', {id: oneDog.id}) }}">Feed</a> | 
+						<a href="{{ app.url_generator.generate('dogs-details', {id: oneDog.id}) }}">Details</a>
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}
