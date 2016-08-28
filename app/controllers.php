@@ -7,7 +7,9 @@ require_once __DIR__ . "/../data/data.php";
 require_once __DIR__ . "/../locale/Captions.php";
 $app['debug'] = true;
 $app->get('/', function () use ($app) {
-	return $app['twig']->render('home.html');
+	return $app['twig']->render('home.html', [
+		'contents' => file_get_contents('README.md'),
+	]);
 })
 ->bind("home");
 
