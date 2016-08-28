@@ -38,6 +38,10 @@ class Dog{
 		}
 	}
 	
+	/**
+	 * @param Array $attributes
+	 * @return Dog
+	 */
 	public static function factory($attributes){
 		$breed = isset($attributes->breed) ? $attributes->breed : "";
 		//If $breed is empty, or if it is not supported, we'll simply use a generic Dog object
@@ -104,10 +108,35 @@ class Dog{
 	 * This method converts the attributes of the Dog object to array
 	 */
 	public function toArray(){
-		return array("id" => $this->getId(), "hair_color" => $this->getHairColor(), "breed" => $this->getBreed());
+		return array("id" => $this->getId(),
+					"hair_color" => $this->getHairColor(),
+					"breed" => $this->getBreed(),
+					"is_barking" => $this->isBarking(),
+					"is_hungry" => $this->isHungry(),
+		);
 	}
 	public function getBreed(){
 		return "Generic Dog";
+	}
+	
+	/**
+	 * This method will return the Dog object based on its ID.
+	 * Since we don't have a database, we'll simply search in ALL the records for the right ID, and then use the factory method on it.
+	 * @return Dog|NULL
+	 */
+	public static function loadById($id){
+		//Usually, we'll use the mysqli::real_escape_string to escape the $id value, or use prepared statements, to prevent SQL injection
+		//For now, we'll just use the (int) method
+		$id = (int)$id;
+		$json = DatabaseSimulator::getData();
+		$data = json_decode($json);
+		$array = array();
+		foreach ($data as $oneRow){
+			if ($oneRow->id == $id){
+				return self::factory($oneRow);
+			}
+		}
+		return null;
 	}
 }
 Dog::addSupportedBreeds();

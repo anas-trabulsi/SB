@@ -17,3 +17,15 @@ $app->get('/dogs', function () use ($app) {
 	return $app['twig']->render('dogs.html', ['dogs' => $dogs]);
 })
 ->bind("dogs-browse");
+
+$app->get('/dogs/feed/{id}', function ($id) use ($app) {
+	$dog = Dog::loadById($id);
+	if (!$dog){
+		return $app['twig']->render('feed.html', ['result' => false, 'msg' => 'This dog does not exist']);
+	}
+	else{
+		$dog->feed();
+		return $app['twig']->render('feed.html', ['result' => true]);
+	}
+})
+->bind("dogs-feed");
