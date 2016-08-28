@@ -44,11 +44,11 @@ class Bernese extends Dog{
 		return $actions;
 	}
 	
-	public function playWith(){
+	protected function playWith(){
 		return true;
 	}
 	
-	public function sleepWithAsCushion(){
+	protected function sleepWithAsCushion(){
 		//To be able to test the error handling, we'll throw an exception 25% of the times, indicating that the dog has bitten our hand
 		if (mt_rand(0,3) == 1){
 			throw new Exception(Captions::DOG_DID_NOT_SLEEP);

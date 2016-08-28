@@ -98,19 +98,6 @@ class Dog{
 		$hours = $diff->h + $diff->days * 24;
 		return $hours >= self::FEEDING_FREQUENCY;
 	}
-	
-	/**
-	 * @return void
-	 * This method feeds the dog (it sets the "lastFed" attribute to the time now) 
-	 */
-	protected function feed(){
-		//To be able to test the error handling, we'll throw an exception 25% of the times, indicating that we don't have enough food
-		if (mt_rand(0,3) == 1){
-			throw new Exception(Captions::NO_FOOD_LEFT);
-		}
-		$this->lastFed = new DateTime();
-		return true;
-	}
 	/************Dog Methods End************/
 	
 	/**
@@ -179,6 +166,19 @@ class Dog{
 			throw new Exception(Captions::ACTION_DOES_NOT_EXIST);
 		}
 		return $this->$actionName();
+	}
+	
+	/**
+	 * @return void
+	 * This method feeds the dog (it sets the "lastFed" attribute to the time now) 
+	 */
+	protected function feed(){
+		//To be able to test the error handling, we'll throw an exception 25% of the times, indicating that we don't have enough food
+		if (mt_rand(0,3) == 1){
+			throw new Exception(Captions::NO_FOOD_LEFT);
+		}
+		$this->lastFed = new DateTime();
+		return true;
 	}
 	/************ACTIONS METHODS End************/
 }

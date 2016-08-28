@@ -40,7 +40,7 @@ class Chihuahua extends Dog{
 		return $actions;
 	}
 	
-	public function pet(){
+	protected function pet(){
 		//To be able to test the error handling, we'll throw an exception 25% of the times, indicating that the dog has bitten our hand
 		if (mt_rand(0,3) == 1){
 			throw new Exception(Captions::DOG_BIT_HAND);
@@ -53,7 +53,7 @@ class Chihuahua extends Dog{
 	 * @return boolean
 	 * This method returns true if the dog has been petted in the last hour, and false otherwise
 	 */
-	public function isExcited(){
+	protected function isExcited(){
 		if ($this->lastTimeDogWasPetted === null){//This dog has never been petted
 			return false;
 		}
