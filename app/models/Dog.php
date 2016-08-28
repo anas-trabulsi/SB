@@ -34,7 +34,7 @@ class Dog{
 			$this->hairColor = $params->hair_color;
 		}
 		if (isset($params->last_fed)){
-			$this->lastFed = $params->last_fed;
+			$this->lastFed = new DateTime($params->last_fed);
 		}
 	}
 	
@@ -103,8 +103,13 @@ class Dog{
 	 * @return void
 	 * This method feeds the dog (it sets the "lastFed" attribute to the time now) 
 	 */
-	public function feed(){
+	protected function feed(){
+		//To be able to test the error handling, we'll throw an exception 25% of the times, indicating that we don't have enough food
+		if (mt_rand(0,3) == 1){
+			throw new Exception("We're out of dog food");
+		}
 		$this->lastFed = new DateTime();
+		return true;
 	}
 	/************Dog Methods End************/
 	
@@ -117,6 +122,7 @@ class Dog{
 					"breed" => $this->getBreed(),
 					"is_barking" => $this->isBarking(),
 					"is_hungry" => $this->isHungry(),
+					"actions" => $this->getAvailableActions(),
 		);
 	}
 	public function getBreed(){
@@ -152,5 +158,28 @@ class Dog{
 		}
 		return null;
 	}
+	/************ACTIONS METHODS START************/
+	/**
+	 * @return []
+	 * This method returns an array of the available actions for this dog breed
+	 * It has the structure: array[ACTION_METHOD_NAME] = ACTION_LABEL
+	 * The generic dog has only one action, which is "feed", while the other breeds have other actions, such as pet, playWith, etc
+	 */
+	public function getAvailableActions(){
+		return array("feed" => "Feed");
+	}
+	
+	public function hasAction($actionName){
+		$availableActions = $this->getAvailableActions();
+		return isset($availableActions[$actionName]);
+	}
+	
+	final public function executeAction($actionName){
+		if (!$this->hasAction($actionName)){
+			throw new Exception("Action does not exist");
+		}
+		return $this->$actionName();
+	}
+	/************ACTIONS METHODS End************/
 }
 Dog::addSupportedBreeds();

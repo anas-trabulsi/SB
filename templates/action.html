@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block title %}Perform action on dog{% endblock %}
+{% block content %}
+	<div class="row">
+		{% if result %}
+			<h1>Action Has Been Performed Successfully</h1>
+			<p>We don't have data persistence, so the action will not have any effect in future requests</p> 
+		{% else %}
+			<h1>Action Could not be Performed</h1>
+			{{ errorMessage }}
+		{% endif %}
+	</div>
+	<a href="{{ app.url_generator.generate('dogs-browse') }}">Back to dogs list</a>
+{% endblock %}

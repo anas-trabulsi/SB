@@ -3,7 +3,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 require_once __DIR__ . "/models/Dog.php";
 require_once __DIR__ . "/../data/data.php";
-
+$app['debug'] = true;
 $app->get('/', function () use ($app) {
 	return $app['twig']->render('home.html');
 })
@@ -18,17 +18,29 @@ $app->get('/dogs', function () use ($app) {
 })
 ->bind("dogs-browse");
 
-$app->get('/dogs/feed/{id}', function ($id) use ($app) {
+$app->get('/dogs/action/{action}/{id}', function ($id, $action) use ($app) {
 	$dog = Dog::loadById($id);
 	if (!$dog){
 		$app->abort(404, "This dog does not exist");
 	}
 	else{
-		$dog->feed();
-		return $app['twig']->render('feed.html', ['result' => true]);
+		if (!$dog->hasAction($action)){
+			$app->abort(404, "Action does not exist for this dog");
+		}
+		else{
+			$errorMessage = "";
+			try{
+				$result = $dog->executeAction($action);
+			}
+			catch (Exception $e){
+				$result = false;
+				$errorMessage = $e->getMessage();
+			}
+			return $app['twig']->render('action.html', ['result' => $result, 'errorMessage' => $errorMessage]);
+		}
 	}
 })
-->bind("dogs-feed");
+->bind("dogs-action");
 
 $app->get('/dogs/details/{id}', function ($id) use ($app) {
 	$dog = Dog::loadById($id);
@@ -36,7 +48,7 @@ $app->get('/dogs/details/{id}', function ($id) use ($app) {
 		$app->abort(404, "This dog does not exist");
 	}
 	else{
-		return $app['twig']->render($dog->viewDetailsFile(), ['result' => true, 'dog' => $dog->toArray()]);
+		return $app['twig']->render($dog->viewDetailsFile(), ['dog' => $dog->toArray()]);
 	}
 })
 ->bind("dogs-details");

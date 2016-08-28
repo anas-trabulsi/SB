@@ -1,10 +1,14 @@
 <?php
 class Chihuahua extends Dog{
 	private $hasStraightEars = false;
+	private $lastTimeDogWasPetted = null;
 	protected function __construct($params){
 		parent::__construct($params);
 		if (isset($params->has_straight_ears)){
 			$this->hasStraightEars = $params->has_straight_ears;
+		}
+		if (isset($params->last_time_dog_was_petted)){
+			$this->lastTimeDogWasPetted = new DateTime($params->last_time_dog_was_petted);
 		}
 	}
 	public function getHasStraightEars(){return $this->hasStraightEars;}
@@ -13,6 +17,7 @@ class Chihuahua extends Dog{
 	public function toArray(){
 		$array = parent::toArray();
 		$array["has_straight_ears"] = $this->getHasStraightEars();
+		$array["is_excited"] = $this->isExcited();
 		return $array;
 	}
 	public function getBreed(){
@@ -27,5 +32,34 @@ class Chihuahua extends Dog{
 	 */
 	public function viewDetailsFile(){
 		return "breeds/chihuahua.html";
+	}
+	
+	public function getAvailableActions(){
+		$actions = parent::getAvailableActions();
+		$actions["pet"] = "Pet";
+		return $actions;
+	}
+	
+	public function pet(){
+		//To be able to test the error handling, we'll throw an exception 25% of the times, indicating that the dog has bitten our hand
+		if (mt_rand(0,3) == 1){
+			throw new Exception("The dog tried to bite my hand");
+		}
+		$this->lastTimeDogWasPetted = new DateTime();
+		return true;
+	}
+	
+	/**
+	 * @return boolean
+	 * This method returns true if the dog has been petted in the last hour, and false otherwise
+	 */
+	public function isExcited(){
+		if ($this->lastTimeDogWasPetted === null){//This dog has never been petted
+			return false;
+		}
+		$now = new DateTime();
+		$diff = $now->diff($this->lastTimeDogWasPetted);
+		$hours = $diff->h + $diff->days * 24;
+		return $hours <= 1;
 	}
 }
