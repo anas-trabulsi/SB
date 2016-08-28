@@ -34,8 +34,10 @@
 						{% endif %}
 					</td>
 					<td>
-						<a href="{{ app.url_generator.generate('dogs-feed', {id: oneDog.id}) }}">Feed</a> | 
 						<a href="{{ app.url_generator.generate('dogs-details', {id: oneDog.id}) }}">Details</a>
+						{% for actionName, actionLabel in oneDog.actions %}
+						| <a href="{{ app.url_generator.generate('dogs-action', {id: oneDog.id, action: actionName}) }}">{{ actionLabel }}</a>
+						{% endfor %}
 					</td>
 				</tr>
 			{% endfor %}

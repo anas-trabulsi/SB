@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+
+{% block title %}Perform action on dog{% endblock %}
+{% block content %}
+	<div class="row">
+		{% if result %}
+			Action has been performed successfully
+		{% else %}
+			Action could not be performed<br/>
+			{{ errorMessage }}
+		{% endif %}
+	</div>
+	<a href="{{ app.url_generator.generate('dogs-browse') }}">Back to dogs list</a>
+{% endblock %}
