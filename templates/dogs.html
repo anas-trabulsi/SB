@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block title %}All Dogs{% endblock %}
+{% block content %}
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Breed</th>
+				<th>Hair Color</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for oneDog in dogs %}
+				<tr>
+					<td>{{ oneDog.id }}</td>
+					<td>{{ oneDog.breed }}</td>
+					<td>{{ oneDog.hair_color }}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}
