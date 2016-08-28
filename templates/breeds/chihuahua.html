@@ -1,0 +1,14 @@
+{% extends "details.html" %}
+
+{% block additional_details %}
+	<div class="row">
+		<div class="col-md-5">
+			<strong>Has Straight Ears</strong><br/>
+			{% if dog.has_straight_ears %}
+				<span class="glyphicon glyphicon-ok glyphicon-white"></span>
+			{% else %}
+				<span class="glyphicon glyphicon-remove glyphicon-white"></span>
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "details.html" %}
+
+{% block additional_details %}
+	<div class="row">
+		<div class="col-md-5">
+			<strong>Like to be Groomed</strong><br/>
+			{% if dog.like_to_be_groomed %}
+				<span class="glyphicon glyphicon-ok glyphicon-white"></span>
+			{% else %}
+				<span class="glyphicon glyphicon-remove glyphicon-white"></span>
+			{% endif %}
+		</div>
+		<div class="col-md-3">
+			<strong>Tail Color</strong><br/>
+			{{ dog.tail_color }}
+		</div>
+	</div>
+{% endblock %}

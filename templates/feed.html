@@ -2,15 +2,8 @@
 
 {% block title %}Feed the Dog{% endblock %}
 {% block content %}
-	{% if result %}
-		<div class="row">
-			Dog has been fed successfully, but since we do not have data persistence, this change will not take affect
-		</div>
-	{% else %}
-		<div class="row">
-			We could not feed the dog.
-			{{ msg }}
-		</div>
-	{% endif %}
+	<div class="row">
+		Dog has been fed successfully, but since we do not have data persistence, this change will not take affect
+	</div>
 	<a href="{{ app.url_generator.generate('dogs-browse') }}">Back to dogs list</a>
 {% endblock %}

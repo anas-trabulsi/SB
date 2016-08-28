@@ -21,7 +21,7 @@ $app->get('/dogs', function () use ($app) {
 $app->get('/dogs/feed/{id}', function ($id) use ($app) {
 	$dog = Dog::loadById($id);
 	if (!$dog){
-		return $app['twig']->render('feed.html', ['result' => false, 'msg' => 'This dog does not exist']);
+		$app->abort(404, "This dog does not exist");
 	}
 	else{
 		$dog->feed();
@@ -29,3 +29,14 @@ $app->get('/dogs/feed/{id}', function ($id) use ($app) {
 	}
 })
 ->bind("dogs-feed");
+
+$app->get('/dogs/details/{id}', function ($id) use ($app) {
+	$dog = Dog::loadById($id);
+	if (!$dog){
+		$app->abort(404, "This dog does not exist");
+	}
+	else{
+		return $app['twig']->render($dog->viewDetailsFile(), ['result' => true, 'dog' => $dog->toArray()]);
+	}
+})
+->bind("dogs-details");

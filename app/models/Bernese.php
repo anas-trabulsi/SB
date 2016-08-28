@@ -26,4 +26,14 @@ class Bernese extends Dog{
 	public function getBreed(){
 		return "Bernese Mountain Dog";
 	}
+	
+	/**
+	 * @return string
+	 * This method returns the details view file
+	 * When inheriting this class, each one of the sub classes can add additional details to be displayed to the user in the "Details" section
+	 * The default view file is details.html. The sub classes can override that value and define their own way to display the details
+	 */
+	public function viewDetailsFile(){
+		return "breeds/bernese.html";
+	}
 }

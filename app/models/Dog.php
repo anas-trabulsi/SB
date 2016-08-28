@@ -41,6 +41,10 @@ class Dog{
 	/**
 	 * @param Array $attributes
 	 * @return Dog
+	 * This method returns an object of type Dog or of its subclasses (Chihuahua or Bernese)
+	 * The attributes argument is an stdClass, it may have an attribute  `breed`. If it does not have the attribute `breed", the method will return a generic `Dog` object
+	 * If it has the attribute `breed`, but its value is not supported by our system yet (meaning it is not Chihuahua or Bernese), it will also return a generic `Dog` object
+	 * If it has the attribute `breed` and it is supported by our system, the method will return an object of the corresponding subclass
 	 */
 	public static function factory($attributes){
 		$breed = isset($attributes->breed) ? $attributes->breed : "";
@@ -117,6 +121,16 @@ class Dog{
 	}
 	public function getBreed(){
 		return "Generic Dog";
+	}
+	
+	/**
+	 * @return string
+	 * This method returns the details view file
+	 * When inheriting this class, each one of the sub classes can add additional details to be displayed to the user in the "Details" section
+	 * The default view file is details.html. The sub classes can override that value and define their own way to display the details
+	 */
+	public function viewDetailsFile(){
+		return "details.html";
 	}
 	
 	/**
