@@ -18,3 +18,17 @@ The implemented solution didn't follow the class diagram 100%. There are two cha
 * The public attributes (Dog::hairColor AND Chihuahua::hasStraightEars) were changed to private attributes with public getters and setters.
 * In the class diagram, the relationship between the classes `Dog` and `ToBeWalked` is a dependency relationship, where class `Dog` depends on class `ToBeWalked`. However, in the implemented solution, it was first changed to the opposite (class `ToBeWalked` depends on class `Dog`). The reason is that class `ToBeWalked` needs to know which particular dog to walk, which implies that it depends on class `Dog`.
 * Furthermore, a dependency in the opposite direction was also added later (class `Dog` depends on class `ToBeWalked`). The reason behind that is to make the system simpler (Instead of adding another controller and view to the `ToBeWalked` class, I used those that are for the `Dog` class)
+
+## FILE STRUCTURE
+The files that I added are (All other files are Silex files):
+* app/app.php: just to initiate the application
+* app/controllers.php: it includes all the URI routes and the controller methods. 4 routes were defined.
+* models/Dog.php: this is where most of the work is done. It uses the Factory design pattern to instantiate objects of the right dog breeds.
+* models/Chihuahua.php: a subclass for the class Dog. It adds the attributes "hasStraightEars" and "lastTimeDogWasPetted". It adds the method: "isExcited". It adds the action (method) "pet" and remove the action "walk" (because apparently, we don't walk Chihuahuas)
+* models/Bernese.php: a subclass for the class Dog. It adds the attributes "likeToBeGroomed" and "tailColor". It adds the actions (methods) "playWith" and "sleepWithAsCushion"
+* models/ToBeWalked.php: the relationship between ToBeWalked and Dog is defined earlier in this README file
+* data/data.php: it simply tries to simulate a database
+* locale/Captions.php: in order not to include any output text in the controllers or models (since all text should be in the view files), I added all the captions as constants in a class
+* templates/*.html: includes the view files for the different actions
+* templates/breeds/*.html: includes the additional details that Chihuahuas and Berneses have
+* test/*: all the PHP unit tests
