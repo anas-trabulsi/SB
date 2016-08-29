@@ -56,7 +56,7 @@ class Chihuahua extends Dog{
 	 * @return boolean
 	 * This method returns true if the dog has been petted in the last hour, and false otherwise
 	 */
-	protected function isExcited(){
+	public function isExcited(){
 		if ($this->lastTimeDogWasPetted === null){//This dog has never been petted
 			return false;
 		}
